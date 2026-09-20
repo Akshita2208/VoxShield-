@@ -1,0 +1,48 @@
+"use client"
+
+import React from "react"
+import { Shield, ShieldAlert, Eye, Bell, User } from "lucide-react"
+
+export type SettingsSection = "security" | "protection" | "privacy" | "notifications" | "account";
+
+interface SettingsNavigationProps {
+  activeSection: SettingsSection;
+  onSectionChange: (section: SettingsSection) => void;
+}
+
+export function SettingsNavigation({ activeSection, onSectionChange }: SettingsNavigationProps) {
+  
+  const navItems = [
+    { id: "security", label: "Security", icon: Shield },
+    { id: "protection", label: "Protection Controls", icon: ShieldAlert },
+    { id: "privacy", label: "Privacy & Data", icon: Eye },
+    { id: "notifications", label: "Notifications", icon: Bell },
+    { id: "account", label: "Account & Access", icon: User },
+  ] as const;
+
+  return (
+    <div className="flex flex-col gap-2 min-w-[220px]">
+      <h3 className="text-xs font-semibold text-muted uppercase tracking-wider mb-2 px-3">Settings</h3>
+      
+      {navItems.map((item) => {
+        const Icon = item.icon;
+        const isActive = activeSection === item.id;
+        
+        return (
+          <button
+            key={item.id}
+            onClick={() => onSectionChange(item.id)}
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left ${
+              isActive 
+                ? "bg-primary/10 text-primary" 
+                : "text-foreground hover:bg-surface-elevated"
+            }`}
+          >
+            <Icon className={`h-4 w-4 ${isActive ? "text-primary" : "text-muted"}`} />
+            {item.label}
+          </button>
+        )
+      })}
+    </div>
+  )
+}

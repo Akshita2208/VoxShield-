@@ -7,7 +7,6 @@ import { Badge, StatusIndicator } from "@/components/ui/badge"
 import { GlassInput, GlassSelect } from "@/components/ui/inputs"
 import { GlassModal, GlassTooltip } from "@/components/ui/overlays"
 import { VoiceWaveform } from "@/components/ui/voice-waveform"
-import { SecurityPipeline } from "@/components/ui/security-pipeline"
 import { MetricCard, SectionHeader, Divider, Avatar } from "@/components/ui/data-display"
 import { EmptyState, ErrorState, LoadingState } from "@/components/ui/states"
 import { Bell, ShieldCheck, AlertTriangle } from "lucide-react"
@@ -156,7 +155,7 @@ export default function DesignSystemPage() {
       <Divider />
 
       <section>
-        <SectionHeader title="7. Live Interactions" description="Waveforms and Security Pipelines." />
+        <SectionHeader title="7. Live Interactions" description="Waveforms." />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <GlassCard level={2} className="p-6 flex flex-col items-center justify-center min-h-[200px]">
             <h3 className="font-semibold mb-6 self-start">Voice Waveform (Visual)</h3>
@@ -167,13 +166,6 @@ export default function DesignSystemPage() {
             <h3 className="font-semibold mb-6 self-start">Voice Waveform (Critical)</h3>
             <VoiceWaveform active={true} intensity="high" colorVariant="danger" />
           </GlassCard>
-        </div>
-        
-        <div className="mt-8">
-          <h3 className="font-semibold mb-4">Security Pipeline (Detect → Prevent)</h3>
-          <GlassPanel level={2} className="p-8">
-            <SecurityPipeline activeStep={2} pipelineState="active" />
-          </GlassPanel>
         </div>
       </section>
 

@@ -1,0 +1,19 @@
+﻿PYTHON_VERSION: 3.11.4
+PYTHON_EXECUTABLE: C:\Users\anurag\AppData\Local\Programs\Python\Python311\python.exe
+TORCH_VERSION: Not installed
+TORCHAUDIO_VERSION: Not installed
+TORCHVISION_VERSION: Not installed
+LIBROSA_VERSION: Not installed
+NUMPY_VERSION: Not installed
+SCIPY_VERSION: Not installed
+SCIKIT_LEARN_VERSION: Not installed
+MATPLOTLIB_VERSION: Not installed
+SOUNDFILE_VERSION: Not installed
+psutil not installed, using fallback
+CPU_CORES_PHYSICAL: Unknown
+CPU_CORES_LOGICAL: 12
+TOTAL_RAM_GB: Unknown
+AVAILABLE_RAM_GB: Unknown
+DISK_TOTAL_GB: Unknown
+DISK_FREE_GB: Unknown
+NVIDIA_SMI: Not available

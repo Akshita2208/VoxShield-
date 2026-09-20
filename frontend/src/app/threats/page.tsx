@@ -1,8 +1,6 @@
 "use client"
 
 import React from "react"
-import { TopNav } from "@/components/navigation/top-nav"
-import { MobileSideNav } from "@/components/navigation/mobile-side-nav"
 import { ThreatHeader } from "@/components/threats/threat-header"
 import { ThreatOverview } from "@/components/threats/threat-overview"
 import { ActiveThreats } from "@/components/threats/active-threats"
@@ -18,10 +16,7 @@ export default function ThreatsPage() {
       <div className="absolute inset-0 bg-grid-white/5 bg-[size:40px_40px] pointer-events-none" />
       <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-primary/5 via-background to-background pointer-events-none" />
       
-      <TopNav />
-      <MobileSideNav />
-
-      <main className="flex-1 container mx-auto px-4 pt-24 pb-20 relative z-10 flex flex-col">
+      <div className="flex-1 container mx-auto px-4 pt-8 pb-20 relative z-10 flex flex-col">
         <ThreatHeader />
         
         <ThreatOverview />
@@ -35,7 +30,7 @@ export default function ThreatsPage() {
         <ThreatQuickActions />
 
         <ThreatPrivacy />
-      </main>
+      </div>
     </div>
   )
 }

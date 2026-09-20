@@ -1,9 +1,8 @@
 "use client"
 
 import React, { useState } from "react"
-import { TopNav } from "@/components/navigation/top-nav"
-import { MobileSideNav } from "@/components/navigation/mobile-side-nav"
 import { ScannerHeader } from "@/components/scanner/scanner-header"
+import { Button } from "@/components/ui/button"
 import { ScannerPrivacy } from "@/components/scanner/scanner-privacy"
 import { AudioDropzone } from "@/components/scanner/audio-dropzone"
 import { AudioPreview } from "@/components/scanner/audio-preview"
@@ -70,10 +69,7 @@ export default function ScannerPage() {
       <div className="absolute inset-0 bg-grid-white/5 bg-[size:40px_40px] pointer-events-none" />
       <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-primary/5 via-background to-background pointer-events-none" />
       
-      <TopNav />
-      <MobileSideNav />
-
-      <main className="flex-1 container mx-auto px-4 max-w-5xl pt-24 pb-20 relative z-10 flex flex-col">
+      <div className="flex-1 container mx-auto px-4 max-w-5xl pt-8 pb-20 relative z-10 flex flex-col">
         <ScannerHeader />
         
         {state === "idle" && <ScannerPrivacy />}
@@ -142,7 +138,7 @@ export default function ScannerPage() {
 
           </AnimatePresence>
         </div>
-      </main>
+      </div>
     </div>
   )
 }

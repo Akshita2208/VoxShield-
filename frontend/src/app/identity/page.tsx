@@ -1,8 +1,6 @@
 "use client"
 
 import React from "react"
-import { TopNav } from "@/components/navigation/top-nav"
-import { MobileSideNav } from "@/components/navigation/mobile-side-nav"
 import { IdentityHeader } from "@/components/identity/identity-header"
 import { IdentityOverview } from "@/components/identity/identity-overview"
 import { MyIdentityCard } from "@/components/identity/my-identity-card"
@@ -28,10 +26,7 @@ export default function IdentityPage() {
       <div className="absolute inset-0 bg-grid-white/5 bg-[size:40px_40px] pointer-events-none" />
       <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-cyan-500/5 via-background to-background pointer-events-none" />
       
-      <TopNav />
-      <MobileSideNav />
-
-      <main className="flex-1 container mx-auto px-4 max-w-5xl pt-24 pb-20 relative z-10 flex flex-col">
+      <div className="flex-1 container mx-auto px-4 max-w-5xl pt-8 pb-20 relative z-10 flex flex-col">
         <IdentityHeader />
         
         <IdentityOverview />
@@ -43,7 +38,7 @@ export default function IdentityPage() {
         <IdentityFlow />
 
         <IdentityPrivacy />
-      </main>
+      </div>
     </div>
   )
 }

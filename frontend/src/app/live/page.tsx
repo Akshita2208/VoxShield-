@@ -1,8 +1,6 @@
 "use client"
 
 import React, { useState, useEffect, useRef } from "react"
-import { TopNav } from "@/components/navigation/top-nav"
-import { MobileSideNav } from "@/components/navigation/mobile-side-nav"
 import { LiveHeader } from "@/components/live/live-header"
 import { CallIdentity } from "@/components/live/call-identity"
 import { VoiceVisualizer } from "@/components/live/voice-visualizer"
@@ -74,10 +72,7 @@ export default function LiveProtectionPage() {
       <div className="absolute inset-0 bg-grid-white/5 bg-[size:40px_40px] pointer-events-none" />
       <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-primary/5 via-background to-background pointer-events-none" />
       
-      <TopNav />
-      <MobileSideNav />
-
-      <main className="flex-1 container mx-auto px-4 max-w-4xl pt-24 pb-8 flex flex-col relative z-10">
+      <div className="flex-1 container mx-auto px-4 max-w-4xl pt-8 pb-8 flex flex-col relative z-10">
         <LiveHeader />
         
         <div className="flex-1 flex flex-col pt-8">
@@ -100,7 +95,7 @@ export default function LiveProtectionPage() {
             disabled={state === "call_ended"} 
           />
         </div>
-      </main>
+      </div>
 
       <DemoControls 
         state={state}

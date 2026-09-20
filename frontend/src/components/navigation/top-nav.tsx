@@ -19,7 +19,10 @@ const NAV_ITEMS = [
   { label: "Design System", href: "/design-system", icon: User },
 ]
 
+import { usePathname } from "next/navigation"
+
 export function TopNav() {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = React.useState(false)
   const [isProfileOpen, setIsProfileOpen] = React.useState(false)
   const profileRef = React.useRef<HTMLDivElement>(null)
@@ -65,15 +68,22 @@ export function TopNav() {
             <VoxLogo />
           </Link>
           <nav className="flex items-center gap-6">
-            {NAV_ITEMS.map((item) => (
-              <Link 
-                key={item.href} 
-                href={item.href}
-                className="text-sm font-medium text-secondary hover:text-foreground transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
+              return (
+                <Link 
+                  key={item.href} 
+                  href={item.href}
+                  className={cn(
+                    "text-sm font-medium transition-colors",
+                    isActive ? "text-primary font-semibold" : "text-secondary hover:text-foreground"
+                  )}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
           </nav>
         </div>
         <div className="flex items-center gap-4">

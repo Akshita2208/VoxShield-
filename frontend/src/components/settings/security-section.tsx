@@ -79,6 +79,23 @@ export function SecuritySection({ preferences, onChange }: SecuritySectionProps)
           </div>
         </div>
 
+        {/* Blockchain Identity & Audit */}
+        <div className="p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="text-base font-bold text-foreground mb-1">Blockchain Identity & Audit</h3>
+              <p className="text-sm text-muted max-w-lg">
+                View integrity status of identity credentials and audit records.
+              </p>
+            </div>
+            <div className="shrink-0">
+              <Button variant="outline" asChild>
+                <a href="/audit">View Audit Layer</a>
+              </Button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   )

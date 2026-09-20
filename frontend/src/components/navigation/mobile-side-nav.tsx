@@ -19,7 +19,10 @@ const NAV_ITEMS = [
   { label: "Design System", href: "/design-system", icon: User },
 ]
 
+import { usePathname } from "next/navigation"
+
 export function MobileSideNav() {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
 
@@ -101,12 +104,19 @@ export function MobileSideNav() {
                 <nav className="flex flex-col gap-1 px-2">
                   {NAV_ITEMS.map((item) => {
                     const Icon = item.icon
+                    const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
                     return (
                       <Link
                         key={item.href}
                         href={item.href}
                         onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-secondary hover:bg-surface-elevated hover:text-foreground transition-colors"
+                        className={cn(
+                          "flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition-colors",
+                          isActive 
+                            ? "bg-primary/10 text-primary font-semibold" 
+                            : "font-medium text-secondary hover:bg-surface-elevated hover:text-foreground"
+                        )}
+                        aria-current={isActive ? "page" : undefined}
                       >
                         <Icon className="h-5 w-5" />
                         {item.label}
@@ -127,11 +137,11 @@ export function MobileSideNav() {
                     <p className="text-xs text-muted mt-0.5">Not signed in</p>
                   </div>
                   
-                  <Link href="#profile" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-secondary hover:bg-surface-elevated hover:text-foreground transition-colors">
+                  <button className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-secondary hover:bg-surface-elevated hover:text-foreground transition-colors text-left">
                     <UserRound className="h-4 w-4" />
                     Profile
-                  </Link>
-                  <Link href="#settings" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-secondary hover:bg-surface-elevated hover:text-foreground transition-colors">
+                  </button>
+                  <Link href="/settings" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-secondary hover:bg-surface-elevated hover:text-foreground transition-colors">
                     <Settings className="h-4 w-4" />
                     Security Settings
                   </Link>

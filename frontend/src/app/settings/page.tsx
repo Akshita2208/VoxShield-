@@ -1,8 +1,6 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { TopNav } from "@/components/navigation/top-nav"
-import { MobileSideNav } from "@/components/navigation/mobile-side-nav"
 import { SettingsHeader } from "@/components/settings/settings-header"
 import { SecurityStatus } from "@/components/settings/security-status"
 import { SettingsNavigation, SettingsSection } from "@/components/settings/settings-navigation"
@@ -61,10 +59,7 @@ export default function SettingsPage() {
       <div className="absolute inset-0 bg-grid-white/5 bg-[size:40px_40px] pointer-events-none" />
       <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-primary/5 via-background to-background pointer-events-none" />
       
-      <TopNav />
-      <MobileSideNav />
-
-      <main className="flex-1 container mx-auto px-4 pt-32 lg:pt-40 pb-32 relative z-10 flex flex-col">
+      <div className="flex-1 container mx-auto px-4 pt-8 lg:pt-16 pb-32 relative z-10 flex flex-col">
         <SettingsHeader />
         
         <SecurityStatus />
@@ -113,7 +108,7 @@ export default function SettingsPage() {
 
         </div>
 
-      </main>
+      </div>
 
       <SettingsSaveBar 
         isVisible={hasUnsavedChanges}

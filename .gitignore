@@ -19,6 +19,8 @@ out/
 *.pth
 *.ckpt
 ai/checkpoints/
+ai/models/
+ai/datasets/
 
 # IDE / OS
 .vscode/

@@ -3,9 +3,9 @@
 import * as React from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, ShieldCheck, Activity, Search, Shield, Clock, ShieldAlert, User } from "lucide-react"
+import { Menu, X, ShieldCheck, Activity, Search, Shield, Clock, ShieldAlert, User, UserRound, LogIn, Settings } from "lucide-react"
 import { VoxLogo } from "../ui/vox-logo"
-import { IconButton } from "../ui/button"
+import { IconButton, Button } from "../ui/button"
 import { ThemeToggle } from "../ui/theme-toggle"
 import { cn } from "@/lib/utils"
 
@@ -31,14 +31,23 @@ export function MobileSideNav() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Prevent scrolling when drawer is open
+  // Prevent scrolling when drawer is open and listen for Escape key
   React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false)
+    }
+
     if (isOpen) {
       document.body.style.overflow = "hidden"
+      document.addEventListener("keydown", handleKeyDown)
     } else {
       document.body.style.overflow = "unset"
+      document.removeEventListener("keydown", handleKeyDown)
     }
-    return () => { document.body.style.overflow = "unset" }
+    return () => { 
+      document.body.style.overflow = "unset" 
+      document.removeEventListener("keydown", handleKeyDown)
+    }
   }, [isOpen])
 
   return (
@@ -104,17 +113,32 @@ export function MobileSideNav() {
                       </Link>
                     )
                   })}
+                  <div className="px-4 py-2 mt-2">
+                    <Link href="/login" onClick={() => setIsOpen(false)}>
+                      <Button className="w-full" variant="primary">Get Protected</Button>
+                    </Link>
+                  </div>
                 </nav>
               </div>
               <div className="p-4 border-t border-border">
-                <div className="flex items-center gap-3 rounded-lg px-4 py-3 bg-surface-elevated">
-                  <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold">
-                    US
+                <div className="flex flex-col gap-2">
+                  <div className="px-2 pb-2 mb-2 border-b border-border/50">
+                    <p className="text-sm font-semibold text-foreground">Account</p>
+                    <p className="text-xs text-muted mt-0.5">Not signed in</p>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium text-foreground">User Profile</span>
-                    <span className="text-xs text-muted">Manage account</span>
-                  </div>
+                  
+                  <Link href="#profile" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-secondary hover:bg-surface-elevated hover:text-foreground transition-colors">
+                    <UserRound className="h-4 w-4" />
+                    Profile
+                  </Link>
+                  <Link href="#settings" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-secondary hover:bg-surface-elevated hover:text-foreground transition-colors">
+                    <Settings className="h-4 w-4" />
+                    Security Settings
+                  </Link>
+                  <Link href="/login" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-primary hover:bg-surface-elevated transition-colors">
+                    <LogIn className="h-4 w-4" />
+                    Sign In
+                  </Link>
                 </div>
               </div>
             </motion.div>

@@ -4,8 +4,10 @@ import * as React from "react"
 import Link from "next/link"
 import { VoxLogo } from "../ui/vox-logo"
 import { ThemeToggle } from "../ui/theme-toggle"
-import { ShieldCheck, Activity, Search, Shield, Clock, ShieldAlert, User } from "lucide-react"
+import { Button } from "../ui/button"
+import { ShieldCheck, Activity, Search, Shield, Clock, ShieldAlert, User, UserRound, LogIn, Settings } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { motion, AnimatePresence } from "framer-motion"
 
 const NAV_ITEMS = [
   { label: "Home", href: "/", icon: ShieldCheck },
@@ -19,13 +21,33 @@ const NAV_ITEMS = [
 
 export function TopNav() {
   const [scrolled, setScrolled] = React.useState(false)
+  const [isProfileOpen, setIsProfileOpen] = React.useState(false)
+  const profileRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
     }
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false)
+      }
+    }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsProfileOpen(false)
+      }
+    }
+    
     window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
+    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("keydown", handleKeyDown)
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("keydown", handleKeyDown)
+    }
   }, [])
 
   return (
@@ -56,9 +78,56 @@ export function TopNav() {
         </div>
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          <div className="h-8 w-8 rounded-full bg-surface-elevated border border-border flex items-center justify-center text-foreground font-semibold">
-            US
+          <Link href="/login">
+            <Button size="sm" variant="primary">Get Protected</Button>
+          </Link>
+          
+          <div className="relative" ref={profileRef}>
+            <button 
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
+              className="h-8 w-8 rounded-full bg-surface-elevated border border-border flex items-center justify-center text-foreground hover:bg-border/50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              aria-expanded={isProfileOpen}
+              aria-haspopup="true"
+            >
+              <UserRound className="h-4 w-4 text-secondary" />
+            </button>
+
+            <AnimatePresence>
+              {isProfileOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  transition={{ duration: 0.15, ease: "easeOut" }}
+                  className="absolute right-0 mt-2 w-56 glass-3 border border-border rounded-xl shadow-xl overflow-hidden z-50 flex flex-col"
+                >
+                  <div className="px-4 py-3 border-b border-border/50">
+                    <p className="text-sm font-semibold text-foreground">Account</p>
+                    <p className="text-xs text-muted mt-0.5">Not signed in</p>
+                  </div>
+                  
+                  <div className="py-1 border-b border-border/50">
+                    <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-secondary hover:text-foreground hover:bg-surface-elevated transition-colors text-left focus:outline-none focus:bg-surface-elevated">
+                      <UserRound className="h-4 w-4" />
+                      Profile
+                    </button>
+                    <Link href="/settings" className="w-full flex items-center gap-3 px-4 py-2 text-sm text-secondary hover:text-foreground hover:bg-surface-elevated transition-colors text-left focus:outline-none focus:bg-surface-elevated">
+                      <Settings className="h-4 w-4" />
+                      Security Settings
+                    </Link>
+                  </div>
+                  
+                  <div className="py-1">
+                    <Link href="/login" className="w-full flex items-center gap-3 px-4 py-2 text-sm text-primary hover:text-primary hover:bg-surface-elevated transition-colors text-left focus:outline-none focus:bg-surface-elevated font-medium">
+                      <LogIn className="h-4 w-4" />
+                      Sign In
+                    </Link>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
+
         </div>
       </div>
     </header>
